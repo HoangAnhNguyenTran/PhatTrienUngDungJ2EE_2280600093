@@ -1,6 +1,8 @@
 package com.baitap.Bai2.controller;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,15 +31,24 @@ public class BookController {
         return bookService.getBookById(id);
     }
     @PostMapping
-    public void addBook(@RequestBody Book book) {
+    public Map<String, String> addBook(@RequestBody Book book) {
         bookService.addBook(book);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Book added successfully!");
+        return response;
     }
     @PutMapping("/{id}")
-    public void updateBook(@PathVariable int id, @RequestBody Book updatedBook) {
+    public Map<String, String> updateBook(@PathVariable int id, @RequestBody Book updatedBook) {
         bookService.updateBook(id, updatedBook);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Book updated successfully!");
+        return response;
     }
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable int id) {
+    public Map<String, String> deleteBook(@PathVariable int id) {
         bookService.deleteBook(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Book deleted successfully!");
+        return response;
     }
 }
