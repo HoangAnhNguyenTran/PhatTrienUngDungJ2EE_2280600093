@@ -1,0 +1,63 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{_layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>List products</title>
+  </head>
+  <body>
+    <div layout:fragment="content" class="container body-content">
+      <a th:href="@{/products/create}" class="btn btn-primary mb-3"
+        >New Product</a
+      >
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="product : ${listproduct}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+              <img
+                height="120"
+                width="150"
+                th:src="@{'/images/' + ${product.image}}"
+                alt="Product Image"
+              />
+            </td>
+            <td
+              th:text="${product.category != null ? product.category.name : ''}"
+            ></td>
+            <td>
+              <a
+                th:href="@{'/products/edit/' + ${product.id}}"
+                class="btn btn-secondary btn-sm"
+                >Edit</a
+              >
+              <a
+                th:href="@{'/products/delete/' + ${product.id}}"
+                class="btn btn-danger btn-sm"
+                >Delete</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
